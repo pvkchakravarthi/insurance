@@ -1,0 +1,11 @@
+<div>&nbsp;</div>
+<div>
+  <h3 style="color:red; text-align:center">Quote</h3>
+</div>
+<label>Enter your Age: </label>
+<input type="text" [(ngModel)]='age' (blur)='changeStatus()'>
+<input type="button" [disabled]='isDisabled' value="Get Quote" (click)="showPolicy()">
+
+<div>&nbsp;</div>
+<p>Age: {{age}}</p>
+<p>Suggested Policy: {{suggestedPolicy}}</p>

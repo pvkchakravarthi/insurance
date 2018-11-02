@@ -1,0 +1,32 @@
+<div *ngIf='toggleAddForm'>
+<form #f='ngForm' (ngSubmit)='submit(f.value)' ngNativeValidate>
+  <div class='form-group'><label for="id">Id</label><input type="text" name='id' [(ngModel)]='policyData.id' class='form-control'></div>
+  <div class='form-group'><label for="policyHolderName">Name</label><input type="text" name='policyHolderName' [(ngModel)]='policyData.policyHolderName' class='form-control' required></div>
+  <div class='form-group'><label for="policyAmount">Amount</label><input type="text" name='policyAmount' [(ngModel)]='policyData.policyAmount' class='form-control'></div>
+  <div class='form-group'><label for="maturityDate">Maturity Date</label><input type="date" name='maturityDate' [(ngModel)]='policyData.maturityDate' class='form-control'></div>
+  <div class='form-group'><input type="submit" [value]='buttonText' class='btn btn-info'></div>
+</form>
+</div>
+
+<table width="100%">
+  <tr>
+    <td><label>Enter the name:</label></td>
+    <td><input [(ngModel)]='srchName'></td>
+    <td><button (click)='newPolicy()' [ngClass]="{'fa fa-2x':true,'fa-toggle-up':!toggleAddForm,'fa-toggle-down':toggleAddForm}">New Policy</button></td>
+  </tr>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Amount</th>
+    <th>Maturity</th>
+  </tr>
+  <tr *ngFor="let eachPolicy of policyDetails | filter:'policyHolderName':srchName | paginate:{itemsPerPage:2,currentPage:page}">
+    <td>{{eachPolicy.id}}</td>
+    <td>{{eachPolicy.policyHolderName }}</td>
+    <td>{{eachPolicy.policyAmount | currency:'INR':'symbol'}}</td>
+    <td>{{eachPolicy.maturityDate | date: 'short'}}</td>
+    <td><button class="fa fa-2x fa-edit" (click)="update(eachPolicy)"></button></td>
+    <td><button class="fa fa-2x fa-remove" (click)="remove(eachPolicy)"></button></td>
+</tr>
+</table>
+<pagination-controls (pageChange)='page=$event'></pagination-controls>
